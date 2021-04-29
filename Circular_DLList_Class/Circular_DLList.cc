@@ -5,38 +5,65 @@
 Circular_DLList::~Circular_DLList() 
 { 
     
-	for (DLLNode *p; !is_empty(); ) {
+	for (DLLNode *p; !is_empty(); ) 
+    {
 		p = tail->next;
-		delete tail;
+		delete [] tail;
 		tail = p;
+        std::cout << "deleting fuck you valgrind" << std::endl;
 	}
 }
 
 bool Circular_DLList::is_empty()
 {
-    bool result = false;
-       DLLNode *p;
-       for(p = tail->next; p->next != tail;p = p->next)
-       {
-           if(sizeof(p->info) == 0)
-           {
-               result = true;
-               return result;
-           }
-           else
-           {
-               result = false;
-           }
-       }
-    return result;
+    
+     if(tail->next == NULL)
+     {
+         return true;
+     }
+     else{
+         return false;
+     }
+     
+    
 }
 
 void Circular_DLList::add_to_tail(int input)
 { 
+    
+    DLLNode *new_node = new DLLNode();
+    new_node->info = input;
+    //see if a tail already exists
+    if(tail == NULL)
+    {
+        
+        tail = new_node;
+    }
+    //see if the tail is the only node.
+    else if (tail->prev == 0 || tail->next == 0)
+    {
+        
+        new_node->prev = tail;
+        new_node->next = tail;
+        tail->prev = new_node;
+        tail->next = new_node;
+         
+    }
+    else
+    {
+        
+        DLLNode *head = tail->next;   
+        
+        new_node->next = head;
+        new_node->prev = tail;
+        //now point the tail to the new node
+        tail->next = new_node;
+        head->prev = new_node;
+    }
     //declare the new node and place it next to the tail
-    DLLNode *new_node = new DLLNode(input, tail, tail->next);
-    //now point the tail to the new node
-    tail->next = new_node;
+    
+    
+    
 }
 
 int Circular_DLList::delete_from_tail()
