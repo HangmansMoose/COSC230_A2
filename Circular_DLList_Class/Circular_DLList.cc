@@ -1,11 +1,14 @@
 #include "Circular_DLList.h"
 #include <iostream>
 
+int list_length;
+
 
 Circular_DLList::~Circular_DLList() 
 { 
+    DLLNode *p;
     
-	for (DLLNode *p; !is_empty(); ) 
+	for (int i = 0; i < list_length; i++ ) 
     {
 		p = tail->next;
 		delete [] tail;
@@ -17,7 +20,7 @@ Circular_DLList::~Circular_DLList()
 bool Circular_DLList::is_empty()
 {
     
-     if(tail->next == NULL)
+     if(tail->next == tail)
      {
          return true;
      }
@@ -32,6 +35,7 @@ void Circular_DLList::add_to_tail(int input)
 { 
     
     DLLNode *new_node = new DLLNode();
+    list_length++;
     new_node->info = input;
     //see if a tail already exists
     if(tail == NULL)
