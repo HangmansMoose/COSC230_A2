@@ -75,3 +75,15 @@ void save_to_file(list<string>& flist, string filename)
 	output.close();
 }
 
+
+//Passenger class
+
+
+class Passenger{
+public:
+		
+
+private:
+
+};
+
